@@ -16,24 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
 
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x6600
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mechllama
-#define PRODUCT         Breakout
-#define DESCRIPTION     Breakout keyboard
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 8
-#define MATRIX_COLS_PER_SIDE 4
-
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { B0, A7, A6, A5 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1 }
-
-#define DEBUG_MATRIX_SCAN_RATE
-
-#define IOEX_ENABLE
+#define MATRIX_ROW_PINS { B6, B2, B3, B1 }
+#define MATRIX_COL_PINS { F7, F6, F5, F4 }
