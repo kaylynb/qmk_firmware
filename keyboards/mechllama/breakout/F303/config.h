@@ -16,24 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-#include "config_common.h"
+#define I2C1_TIMINGR_PRESC 0U
+#define I2C1_TIMINGR_SCLDEL 8U
+#define I2C1_TIMINGR_SDADEL 0U
+#define I2C1_TIMINGR_SCLH 8U
+#define I2C1_TIMINGR_SCLL 21U
 
-#define VENDOR_ID       0xCEEB
-#define PRODUCT_ID      0x6600
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Mechllama
-#define PRODUCT         Breakout
-#define DESCRIPTION     Breakout keyboard
-
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 8
-#define MATRIX_COLS_PER_SIDE 4
-
-#define DIODE_DIRECTION COL2ROW
-
-#define MATRIX_ROW_PINS { B0, A7, A6, A5 }
-#define MATRIX_COL_PINS { B11, B10, B2, B1 }
-
-#define DEBUG_MATRIX_SCAN_RATE
-
-/* #define IOEX_ENABLE */
+#define I2C1_SCL 8
+#define I2C1_SDA 9

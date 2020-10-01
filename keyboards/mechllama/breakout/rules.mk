@@ -1,6 +1,3 @@
-MCU = STM32F303
-
-# project specific files
 SRC += pca9675.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
 

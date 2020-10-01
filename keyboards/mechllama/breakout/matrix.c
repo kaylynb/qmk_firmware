@@ -16,7 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 
+#ifdef IOEX_ENABLE
 #include "pca9675.h"
+#endif
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -25,7 +27,9 @@ static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
     writePinLow(row_pins[row]);
 
+#ifdef IOEX_ENABLE
     pca9675_write(0b11111111, ~(0b00010000 << row));
+#endif
 }
 
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
@@ -39,7 +43,9 @@ static void init_pins(void) {
         setPinInputHigh(row_pins[x]);
     }
 
+#ifdef IOEX_ENABLE
     pca9675_write(0b11111111, 0b11111111);
+#endif
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
@@ -53,9 +59,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
     matrix_io_delay();
 
+#ifdef IOEX_ENABLE
     // Read all columns at once on ioexpander board
     uint8_t p0, p1;
     pca9675_read(&p0, &p1);
+#else
+    uint8_t p0 = 0;
+#endif
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
@@ -80,7 +90,9 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 void matrix_init_custom(void) {
+#ifdef IOEX_ENABLE
     pca9675_init();
+#endif
     init_pins();
 }
 
