@@ -46,9 +46,9 @@
 #define __RAISE_L2__    KC_0,  KC_4, KC_5, KC_6, _______
 #define __RAISE_L3__  _______, KC_1, KC_2, KC_3, _______
 
-#define __RAISE_R1__  _______, KC_HOME,  KC_UP,   KC_END, _______
-#define __RAISE_R2__  _______, KC_LEFT, KC_DOWN, KC_RGHT, _______
-#define __RAISE_R3__  _______, KC_PGUP, _______, KC_PGDN, _______
+#define __RAISE_R1__  XXXXXXX, KC_HOME,  KC_UP,   KC_END, XXXXXXX
+#define __RAISE_R2__  XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX
+#define __RAISE_R3__  XXXXXXX, KC_PGUP, XXXXXXX, KC_PGDN, XXXXXXX
 
 #define __RAISE_L1__  _______, KC_7, KC_8, KC_9, _______
 #define __RAISE_L2__    KC_0,  KC_4, KC_5, KC_6, _______
