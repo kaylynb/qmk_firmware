@@ -1,0 +1,9 @@
+BOOTLOADER = qmk-dfu
+
+MOUSE_SHARED_EP = no
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = no
+
+RGBLIGHT_ENABLE = no
+
+DEBOUNCE_TYPE = sym_eager_pk
