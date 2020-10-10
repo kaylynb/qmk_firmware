@@ -1,0 +1,8 @@
+#pragma once
+
+#define FORCE_NKRO
+
+#define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define USB_POLLING_INTERVAL_MS 1
