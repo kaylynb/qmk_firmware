@@ -29,11 +29,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 8
 #define MATRIX_COLS_PER_SIDE 4
 
-#define DIODE_DIRECTION COL2ROW
-
 #define MATRIX_ROW_PINS { B0, A7, A6, A5 }
 #define MATRIX_COL_PINS { B11, B10, B2, B1 }
 
 #define DEBUG_MATRIX_SCAN_RATE
 
 #define IOEX_ENABLE
+
+#define DEBOUNCE 0
+
+#undef I2C_ADDRESS_SA0_1
+#define I2C_ADDRESS_SA0_1 0b0111100
+#define LCDWIDTH      128
+#define LCDHEIGHT     32
+
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010000
+#define DRIVER_COUNT 1
+#define DRIVER_1_LED_TOTAL 24
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+
+#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT

@@ -37,6 +37,7 @@ void keyboard_post_init_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
       case KC_4:
+      case KC_J:
           if (record->event.pressed) {
               writePinHigh(KEY_PIN);
           } else {

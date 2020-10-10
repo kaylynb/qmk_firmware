@@ -57,14 +57,19 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
+
+#ifndef IOEX_ENABLE
+    // only delay without io expander. Writing registers over FM+ takes
+    // about 31us which is the default delay anyway.
     matrix_io_delay();
+#endif
 
 #ifdef IOEX_ENABLE
     // Read all columns at once on ioexpander board
     uint8_t p0, p1;
     pca9675_read(&p0, &p1);
 #else
-    uint8_t p0 = 0;
+    uint8_t p0 = 0b11111111;
 #endif
 
     // For each col...

@@ -1,0 +1,4 @@
+MCU = atmega32u4
+
+CUSTOM_MARIX = no
+SPLIT_KEYBOARD = yes

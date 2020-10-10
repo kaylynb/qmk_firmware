@@ -16,25 +16,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-// FM+
-// Rise: 100
-// Fall: 70
-// 470Ohm
-#define I2C1_TIMINGR_PRESC 0U
-#define I2C1_TIMINGR_SCLDEL 10U
-#define I2C1_TIMINGR_SDADEL 0U
-#define I2C1_TIMINGR_SCLH 13U
-#define I2C1_TIMINGR_SCLL 34U
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
 
-// FM
-// Rise:
-// Fall:
-// 1.8kOhm
-// #define I2C1_TIMINGR_PRESC 10U
-// #define I2C1_TIMINGR_SCLDEL 1U
-// #define I2C1_TIMINGR_SDADEL 1U
-// #define I2C1_TIMINGR_SCLH 3U
-// #define I2C1_TIMINGR_SCLL 8U
+#define MATRIX_ROW_PINS { B6, B2, B3, B1 }
+#define MATRIX_COL_PINS { F7, F6, F5, F4 }
 
-#define I2C1_SCL 8
-#define I2C1_SDA 9
+#define DIODE_DIRECTION COL2ROW
+
+#define USB_POLLING_INTERVAL_MS 1
+
+#define USE_I2C
+#define F_SCL 400000L
