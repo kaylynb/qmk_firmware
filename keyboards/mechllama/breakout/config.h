@@ -34,9 +34,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEBUG_MATRIX_SCAN_RATE
 
-#define IOEX_ENABLE
+#define USB_POLLING_INTERVAL_MS 1
+#define MATRIX_IO_DELAY 15
 
-#define DEBOUNCE 0
+// #define IOEX_ENABLE
+#define I2C_FMP
 
 #undef I2C_ADDRESS_SA0_1
 #define I2C_ADDRESS_SA0_1 0b0111100

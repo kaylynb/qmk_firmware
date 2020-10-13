@@ -1,4 +1,4 @@
 MCU = atmega32u4
 
-CUSTOM_MARIX = no
+CUSTOM_MATRIX = no
 SPLIT_KEYBOARD = yes

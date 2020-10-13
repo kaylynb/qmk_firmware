@@ -1,7 +1,7 @@
 SRC += pca9675.c matrix.c
 QUANTUM_LIB_SRC += i2c_master.c
 
-CONSOLE_ENABLE = yes
+CONSOLE_ENABLE = no
 
 MOUSE_SHARED_EP = no
 MOUSEKEY_ENABLE = no
@@ -11,6 +11,6 @@ STENO_ENABLE = no
 
 CUSTOM_MATRIX = lite
 LTO_ENABLE = yes
-# DEBOUNCE_TYPE = sym_eager_pk
+DEBOUNCE_TYPE = sym_eager_pk
 
 # RGB_MATRIX_ENABLE = IS31FL3737

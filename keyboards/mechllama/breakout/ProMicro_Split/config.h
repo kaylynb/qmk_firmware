@@ -16,15 +16,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
+#undef MATRIX_ROWS
+#undef MATRIX_COLS
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 4
+
 #undef MATRIX_ROW_PINS
 #undef MATRIX_COL_PINS
-
 #define MATRIX_ROW_PINS { B6, B2, B3, B1 }
 #define MATRIX_COL_PINS { F7, F6, F5, F4 }
 
 #define DIODE_DIRECTION COL2ROW
-
-#define USB_POLLING_INTERVAL_MS 1
 
 #define USE_I2C
 #define F_SCL 400000L
