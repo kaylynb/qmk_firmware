@@ -1,4 +1,4 @@
-SRC += pca9675.c matrix.c
+SRC += pca9675.c matrix.c mcp23018.c
 QUANTUM_LIB_SRC += i2c_master.c
 
 CONSOLE_ENABLE = no

@@ -16,9 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 
-#ifdef IOEX_ENABLE
+#include <print.h>
+
 #include "pca9675.h"
-#endif
+#include "mcp23018.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -27,8 +28,14 @@ static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
     writePinLow(row_pins[row]);
 
-#ifdef IOEX_ENABLE
+#if defined(IOEX_ENABLE)
+#if defined(PCA9675_ENABLE)
+    // P14, P15, P16, P17
     pca9675_write(0b11111111, ~(0b00010000 << row));
+#else
+    // B0, B1, B2, B3
+    mcp23018_select_row(~(0b00000001 << row));
+#endif
 #endif
 }
 
@@ -43,7 +50,7 @@ static void init_pins(void) {
         setPinInputHigh(row_pins[x]);
     }
 
-#ifdef IOEX_ENABLE
+#if defined(PCA9675_ENABLE)
     pca9675_write(0b11111111, 0b11111111);
 #endif
 }
@@ -58,15 +65,16 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
 
-#ifndef IOEX_ENABLE
-    matrix_io_delay();
-#endif
-
-#ifdef IOEX_ENABLE
+#if defined(IOEX_ENABLE)
     // Read all columns at once on ioexpander board
     uint8_t p0, p1;
+#if defined(PCA9675_ENABLE)
     pca9675_read(&p0, &p1);
 #else
+    mcp23018_read(&p0, &p1);
+#endif
+#else
+    matrix_io_delay();
     uint8_t p0 = 0b11111111;
 #endif
 
@@ -93,8 +101,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 void matrix_init_custom(void) {
-#ifdef IOEX_ENABLE
+#if defined(IOEX_ENABLE)
+    i2c_init();
+#if defined(PCA9675_ENABLE)
     pca9675_init();
+#else
+    mcp23018_init();
+#endif
 #endif
     init_pins();
 }

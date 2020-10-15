@@ -37,7 +37,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USB_POLLING_INTERVAL_MS 1
 #define MATRIX_IO_DELAY 15
 
-// #define IOEX_ENABLE
+// #define PCA9675_ENABLE
+// #define MCP23018_ENABLE
 #define I2C_FMP
 
 #undef I2C_ADDRESS_SA0_1
@@ -52,3 +53,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT
+
+#if defined(PCA9675_ENABLE) && defined(MCP23018_ENABLE)
+#error "Cannot have both PCA9675_ENABLE and MCP23018_ENABLE defined"
+#endif
+
+
+#if defined(PCA9675_ENABLE) || defined(MCP23018_ENABLE)
+#define IOEX_ENABLE
+#endif
