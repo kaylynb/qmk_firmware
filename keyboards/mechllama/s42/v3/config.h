@@ -1,3 +1,10 @@
 #pragma once
 
 #define DEVICE_VER  0x0300
+
+#define I2C1_TIMINGR_PRESC 0U
+#define I2C1_TIMINGR_SCLDEL 7U
+#define I2C1_TIMINGR_SDADEL 0U
+#define I2C1_TIMINGR_SCLH 8U
+#define I2C1_TIMINGR_SCLL 19U
+
