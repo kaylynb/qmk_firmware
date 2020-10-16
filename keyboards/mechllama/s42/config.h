@@ -33,5 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // These are just placeholders to get the io expander encoders working.
 #define ENCODERS_PAD_A { B0, A5, A7 }
 #define ENCODERS_PAD_B { B1, A6, A8 }
-
-#define DEBUG_MATRIX_SCAN_RATE
