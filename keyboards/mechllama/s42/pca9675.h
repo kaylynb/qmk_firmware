@@ -14,14 +14,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#define PCA9675_I2C_GENERAL_CALL_ADDR   0b00000000
-#define PCA9675_I2C_RESET_DATA          0b00000110
-#define PCA9675_I2C_ADDR                0x40
-#define PCA9675_I2C_TIMEOUT             100
+#pragma once
 
-#include "i2c_master.h"
+#include <stdbool.h>
+#include <stdint.h>
+
+// Address already shifted << 1
+#define PCA9675_I2C_ADDR                0x40
+
+#define PCA9675_I2C_TIMEOUT_MS          1
 
 void pca9675_init(void);
-i2c_status_t pca9675_reset(void);
-i2c_status_t pca9675_write(uint8_t p0, uint8_t p1);
-i2c_status_t pca9675_read(uint8_t* p0, uint8_t* p1);
+bool pca9675_write(uint8_t p0, uint8_t p1);
+bool pca9675_read(uint8_t* p0, uint8_t* p1);

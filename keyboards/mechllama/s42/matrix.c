@@ -16,19 +16,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "quantum.h"
 
-#include <print.h>
-
 #include "pca9675.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+
+static uint16_t pca9675_reset_loop = 0;
+static uint8_t pca9675_errors = 0;
 
 static void select_row(uint8_t row) {
     setPinOutput(row_pins[row]);
     writePinLow(row_pins[row]);
 
     // P10, P11, P12, P13
-    pca9675_write(0b11111111, ~(0b00000001 << row));
+    if(!pca9675_errors) {
+        pca9675_errors += !pca9675_write(0b11111111, ~(0b00000001 << row));
+    }
 }
 
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
@@ -41,8 +44,6 @@ static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
         setPinInputHigh(row_pins[x]);
     }
-
-    pca9675_write(0b11111111, 0b11111111);
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
@@ -56,8 +57,16 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     select_row(current_row);
 
     // Read all columns at once on ioexpander board
+    // P00, P01, P02, P03, P04, P05
     uint8_t p0, p1;
-    pca9675_read(&p0, &p1);
+    if (!pca9675_errors) {
+        pca9675_errors += !pca9675_read(&p0, &p1);
+    }
+
+    if (pca9675_errors) {
+        p0 = p1 = 0b11111111;
+        matrix_io_delay();
+    }
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
@@ -82,13 +91,19 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 }
 
 void matrix_init_custom(void) {
-    i2c_init();
     pca9675_init();
+    pca9675_write(0b11111111, 0b11111111);
+
     init_pins();
 }
 
 uint8_t matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
+
+    if (pca9675_errors && ++pca9675_reset_loop > 5000) {
+        pca9675_reset_loop = 0;
+        pca9675_errors = 0;
+    }
 
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
