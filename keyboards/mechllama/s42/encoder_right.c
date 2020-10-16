@@ -60,23 +60,24 @@ void encoder_right_read(uint8_t p0, uint8_t p1) {
     for (uint8_t i = 0; i < NUMBER_OF_RIGHT_ENCODERS; i++) {
         encoder_right_state[i] <<= 2;
 
+        // Pins are reversed on right side due to board flip; swap the shift orders for pin A and B.
         switch (i) {
             case 0:
                 // RE3/K3:1
                 // A: P16, B: P17
-                encoder_right_state[i] |= ((p1 & 0b01000000) >> 6) | ((p1 & 0b10000000) >> 6);
+                encoder_right_state[i] |= ((p1 & 0b01000000) >> 5) | ((p1 & 0b10000000) >> 7);
                 break;
 
             case 1:
                 // RE1/K3:4
                 // A: P06, B: P07
-                encoder_right_state[i] |= ((p0 & 0b01000000) >> 6) | ((p0 & 0b10000000) >> 6);
+                encoder_right_state[i] |= ((p0 & 0b01000000) >> 5) | ((p0 & 0b10000000) >> 7);
                 break;
 
             case 2:
                 // RE2/K:35
                 // A: P14, B: P15
-                encoder_right_state[i] |= ((p1 & 0b00010000) >> 4) | ((p1 & 0b00100000) >> 4);
+                encoder_right_state[i] |= ((p1 & 0b00010000) >> 3) | ((p1 & 0b00100000) >> 5);
         }
 
         encoder_right_update(i, encoder_right_state[i]);
