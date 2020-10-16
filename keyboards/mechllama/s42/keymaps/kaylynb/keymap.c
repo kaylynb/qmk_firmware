@@ -18,6 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "kaylynb_split.h"
 
+enum custom_keycodes_keymap {
+    ENC2_PRESSED = CUSTOM_WRAPPER_END
+};
+
 #define LAYOUT_WIRED(                                                     \
   L00, L01, L02, L03, L04, L05,             R05, R04, R03, R02, R01, R00, \
   L10, L11, L12, L13, L14, L15,        R35, R15, R14, R13, R12, R11, R10, \
@@ -47,7 +51,7 @@ LAYOUT_WIRED(                                                                   
 /*├────────┼────────┼────────┼────────┼────────┼────────┤       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤ */ \
     KC_ESC,   L11,     L12,     L13,     L14,     L15,           XXXXXXX,   R15,     R14,     R13,     R12,     R11,   KC_QUOT,     \
 /*├────────┼────────┼────────┼────────┼────────┼────────┤       ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤ */ \
-    KC_TAB,   L21,     L22,     L23,     L24,     L25,           XXXXXXX,   R25,     R24,     R23,     R22,     R21,   _______,     \
+    KC_TAB,   L21,     L22,     L23,     L24,     L25,      ENC2_PRESSED,   R25,     R24,     R23,     R22,     R21,   _______,     \
 /*└────────┴────────┴────────┴──┬─────┴──┬─────┴──┬─────┴──┐    └─────┬──┴─────┬──┴─────┬──┴─────┬──┴────────┴────────┴────────┘ */ \
                                   KC_DEL,  LOWER,   KC_ENT,             KC_SPC,  RAISE,   KC_BSPC                                   \
 /*                              └────────┴────────┴────────┘          └────────┴────────┴────────┘                               */ \
@@ -122,6 +126,36 @@ void keyboard_post_init_user(void) {
     debug_enable=true;
 }
 
-void encoder_update_user(uint8_t index, bool clockwise) {
-    dprintf("encoder: %u  <>  %u\n", index, clockwise);
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    // switch (keycode) {
+    //     case
+    // }
+
+    return true;
 }
+
+#ifdef ENCODER_ENABLE
+
+
+#include "timer.h"
+static uint16_t encoder_throttle = 0;
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (0 == encoder_throttle || timer_elapsed(encoder_throttle) > 100) {
+        encoder_throttle = timer_read();
+        switch (index) {
+            case 4:
+                if (clockwise) {
+                    // tap_code(KC_MEDIA_NEXT_TRACK);
+                    tap_code(KC_MEDIA_FAST_FORWARD);
+                } else {
+                    // tap_code(KC_MEDIA_PREV_TRACK);
+                    tap_code(KC_MEDIA_REWIND);
+                }
+                break;
+
+            case 5:
+                break;
+        }
+    }
+}
+#endif
