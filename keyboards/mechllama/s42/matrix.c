@@ -34,7 +34,7 @@ static void select_row(uint8_t row) {
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
 
 static void init_pins(void) {
-    for (uint8_t x = 0; x < MATRIX_COLS_PER_SIDE; x++) {
+    for (uint8_t x = 0; x < MATRIX_COLS / 2; x++) {
         setPinInputHigh(col_pins[x]);
     }
 
@@ -63,12 +63,12 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         uint8_t pin_state;
 
-        if (col_index < MATRIX_COLS_PER_SIDE) {
+        if (col_index < MATRIX_COLS / 2) {
             // Select the col pin to read (active low)
             pin_state = readPin(col_pins[col_index]);
         } else {
             // Select pin state from ioexpander
-            pin_state = (p0 & (1 << (col_index - MATRIX_COLS_PER_SIDE)));
+            pin_state = (p0 & (1 << (col_index - MATRIX_COLS / 2 )));
         }
 
         // Populate the matrix row with the state of the col pin

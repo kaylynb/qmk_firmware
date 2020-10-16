@@ -1,5 +1,7 @@
-CONSOLE_ENABLE = yes
-LTO_ENABLE = yes
+CONSOLE_ENABLE = no
+LTO_ENABLE = no
+
+DEBOUNCE_TYPE = sym_eager_pk
 
 CUSTOM_MATRIX = lite
 
