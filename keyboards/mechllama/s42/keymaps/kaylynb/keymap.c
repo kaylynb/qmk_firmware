@@ -51,7 +51,7 @@ LAYOUT_WIRED(                                                                   
 /*├────────┼────────┼────────┼────────┼────────┼────────┤       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤ */ \
     KC_ESC,   L11,     L12,     L13,     L14,     L15,           XXXXXXX,   R15,     R14,     R13,     R12,     R11,   KC_QUOT,     \
 /*├────────┼────────┼────────┼────────┼────────┼────────┤       ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤ */ \
-    KC_TAB,   L21,     L22,     L23,     L24,     L25,      ENC2_PRESSED,   R25,     R24,     R23,     R22,     R21,   _______,     \
+    KC_TAB,   L21,     L22,     L23,     L24,     L25,           KC_MPLY,   R25,     R24,     R23,     R22,     R21,   _______,     \
 /*└────────┴────────┴────────┴──┬─────┴──┬─────┴──┬─────┴──┐    └─────┬──┴─────┬──┴─────┬──┴─────┬──┴────────┴────────┴────────┘ */ \
                                   KC_DEL,  LOWER,   KC_ENT,             KC_SPC,  RAISE,   KC_BSPC                                   \
 /*                              └────────┴────────┴────────┘          └────────┴────────┴────────┘                               */ \
@@ -123,13 +123,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #include <debug.h>
 void keyboard_post_init_user(void) {
-    debug_enable=true;
+    // debug_enable=true;
 }
 
+static bool enc2pressed = false;
+static bool enc2rotated = false;
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
-    // switch (keycode) {
-    //     case
-    // }
+    switch (keycode) {
+        case ENC2_PRESSED:
+            if (record->event.pressed) {
+                enc2rotated = false;
+                enc2pressed = true;
+            } else {
+                enc2pressed = false;
+                if (!enc2rotated) {
+                    // print("not rotated");
+                    // tap_code(KC_MEDIA_PLAY_PAUSE);
+                }
+            }
+            return false;
+    }
 
     return true;
 }
@@ -144,12 +158,18 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         encoder_throttle = timer_read();
         switch (index) {
             case 4:
-                if (clockwise) {
-                    // tap_code(KC_MEDIA_NEXT_TRACK);
-                    tap_code(KC_MEDIA_FAST_FORWARD);
+                if (IS_LAYER_ON(_LOWER)) {
+                    if (clockwise) {
+                        tap_code(KC_MEDIA_NEXT_TRACK);
+                    } else {
+                        tap_code(KC_MEDIA_PREV_TRACK);
+                    }
                 } else {
-                    // tap_code(KC_MEDIA_PREV_TRACK);
-                    tap_code(KC_MEDIA_REWIND);
+                    if (clockwise) {
+                        tap_code(KC_MEDIA_FAST_FORWARD);
+                    } else {
+                        tap_code(KC_MEDIA_REWIND);
+                    }
                 }
                 break;
 
