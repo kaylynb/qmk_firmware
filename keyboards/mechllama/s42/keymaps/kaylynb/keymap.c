@@ -149,8 +149,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
 }
 
 #ifdef ENCODER_ENABLE
-
-
 #include "timer.h"
 static uint16_t encoder_throttle = 0;
 void encoder_update_user(uint8_t index, bool clockwise) {
