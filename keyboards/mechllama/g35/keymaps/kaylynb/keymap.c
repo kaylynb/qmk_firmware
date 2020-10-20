@@ -173,6 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #if defined(OLED_DRIVER_ENABLE)
+static bool g_oled_dirty = false;
+
 const char* get_layer_name(uint8_t layer) {
     switch (layer) {
         case _BASE:
@@ -206,7 +208,16 @@ const char* get_layer_name(uint8_t layer) {
     }
 }
 
+layer_state_t layer_state_set_user(layer_state_t state) {
+    g_oled_dirty = true;
+
+    return state;
+}
+
 void oled_task_user(void) {
-    oled_write_ln_P(get_layer_name(biton32(layer_state)), false);
+    if (g_oled_dirty) {
+        oled_write_ln_P(get_layer_name(biton32(layer_state)), false);
+        g_oled_dirty = false;
+    }
 }
 #endif
