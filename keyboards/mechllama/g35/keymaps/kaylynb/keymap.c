@@ -20,6 +20,7 @@ enum layers {
     _HUNT,
     _MINECRAFT,
     _SATISFACTORY,
+    _COH2,
     /* _SOD, */
     /* _SUBNAUTICA, */
     _BANNER,
@@ -84,6 +85,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
     //
        _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT,  KC_SPC, KC_LCTL
+    //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+    ),
+    [_COH2] = LAYOUT(
+    //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+        KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_BSPC,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+        KC_F4,   KC_F5,    KC_Q,    KC_W,    KC_E,    KC_R,  XXXXXXX,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+        KC_F1,   KC_TAB,   KC_A,    KC_S,    KC_D,    KC_F,  LCTL(KC_A),
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
+        KC_F2,   KC_F3,    KC_Z,    KC_X,    KC_C,    KC_V,  XXXXXXX,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
+    //
+       _______, XXXXXXX, XXXXXXX, KC_LALT, KC_LCTL, KC_MS_BTN3, KC_P0
     //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
     ),
     /* [_SOD] = LAYOUT( */
@@ -158,13 +173,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* ), */
     [_ADJUST] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-       RGB_TOG,TO(_BASE),TO(_HUNT),TO(_MINECRAFT), TO(_SATISFACTORY), TO(_BANNER),  RESET,
+       RGB_TOG,TO(_BASE),TO(_HUNT),TO(_MINECRAFT), TO(_SATISFACTORY), TO(_BANNER),  TO(_COH2),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_SAI, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
-       XXXXXXX, XXXXXXX, RGB_VAD, XXXXXXX, RGB_VAI, XXXXXXX, XXXXXXX,
+       XXXXXXX, XXXXXXX, RGB_VAD, XXXXXXX, RGB_VAI, XXXXXXX,  RESET,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
     //
        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -193,6 +208,8 @@ const char* get_layer_name(uint8_t layer) {
         /*     break; */
         case _SATISFACTORY:
             return PSTR("Satisfactory");
+        case _COH2:
+            return PSTR("COH:2");
         case _BANNER:
             return PSTR("Bannerlord");
         case _BANNER_ALT:
