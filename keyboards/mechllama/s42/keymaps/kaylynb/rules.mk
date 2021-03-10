@@ -3,4 +3,5 @@ ENCODER_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 
 CONSOLE_ENABLE = no
-DEBOUNCE_TYPE = sym_eager_pk
+#DEBOUNCE_TYPE = sym_eager_pk
+DEBOUNCE_TYPE = sym_defer_pk
