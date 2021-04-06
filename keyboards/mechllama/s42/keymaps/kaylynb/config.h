@@ -2,4 +2,4 @@
 
 #define TAP_CODE_DELAY 10
 //#define DEBOUNCE 20
-#define DEBOUNCE 1
+#define DEBOUNCE 5
