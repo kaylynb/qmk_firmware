@@ -1,0 +1,15 @@
+{
+  "manufacturer": "MechLlama",
+  "keyboard_name": "s42",
+  "maintainer": "kaylynb",
+  "bootloader": "stm32-dfu",
+  "matrix_pins": {
+    "cols": ["A3", "A4", "B3", "A15", "B13", "B12"],
+    "rows": ["B5", "B6", "B7", "B4"]
+  },
+  "processor": "STM32F072",
+  "usb": {
+    "pid": "0x8342",
+    "vid": "0xCEEB"
+  }
+}
