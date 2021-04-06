@@ -1,0 +1,12 @@
+{
+  "usb": {
+    "device_ver": 0x0002
+  },
+  "matrix_pins": {
+    "cols": ["D6", "D7", "B4", "B5", "B6", "F6", "D5"],
+    "rows": ["F5", "F4", "F1", "F0", "D4"]
+  },
+  "rgblight": {
+    "led_count": 6
+  }
+}
