@@ -31,6 +31,10 @@ enum layers {
     _ADJUST,
 };
 
+enum custom_keycodes {
+    VALHEIM_ONETWO = SAFE_RANGE,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
@@ -190,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
         KC_F1,   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_F2,    KC_7,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+        KC_F2,    KC_7,VALHEIM_ONETWO,KC_W,  KC_E,    KC_R,    KC_T,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         KC_TAB,  KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_8,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -215,6 +219,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
   ),
 };
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
+    switch(keycode) {
+        case VALHEIM_ONETWO:
+            if (record->event.pressed) {
+                register_code(KC_1);
+                register_code(KC_2);
+            } else {
+                unregister_code(KC_1);
+                unregister_code(KC_2);
+            }
+            return false;
+    }
+
+    return true;
+}
 
 #if defined(OLED_DRIVER_ENABLE)
 static bool g_oled_dirty = false;
