@@ -76,13 +76,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_SATISFACTORY] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-        KC_ESC, XXXXXXX,   KC_4,    KC_5,    KC_6,   KC_7, XXXXXXX,
+        KC_ESC, XXXXXXX,   KC_4,    KC_5,    KC_6,   KC_7,    KC_9,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       XXXXXXX, XXXXXXX,   KC_Q,    KC_W,    KC_E,    KC_8,  XXXXXXX,
+       XXXXXXX, XXXXXXX,   KC_Q,    KC_W,    KC_E,    KC_9,   KC_R,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_TAB, KC_LSFT,   KC_A,    KC_S,    KC_D,    KC_F,    KC_B,
+        KC_TAB, KC_LSFT,   KC_A,    KC_S,    KC_D,    KC_F,   KC_B,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
-        KC_Z,   KC_LCTL,   KC_1,    KC_2,    KC_3,    KC_9,  KC_0,
+        KC_Z,   KC_LCTL,   KC_1,    KC_2,    KC_3,    KC_C,   KC_0,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
     //
        _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_LALT,  KC_SPC, KC_LCTL
