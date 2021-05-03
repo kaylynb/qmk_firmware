@@ -27,6 +27,7 @@ enum layers {
     _SATISFACTORY,
     // _STALKER_COP,
     // _STATE_OF_DECAY,
+    _VALHEIM,
     _ADJUST,
 };
 
@@ -42,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F4,  KC_LCTL,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     //
-    MO(_ADJUST),KC_LGUI, KC_LALT, KC_BSPC,  KC_ENT,  KC_SPC, KC_MINUS
+    MO(_ADJUST),KC_LGUI, KC_LALT, KC_BSPC,  KC_LALT,  KC_SPC, KC_LCTL
     //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
     ),
     //[_BANNERLORD] = LAYOUT(
@@ -185,9 +186,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   _______, _______, _______, _______,   KC_F,   KC_SPC, KC_LCTL
     ////└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
     //),
+    [_VALHEIM] = LAYOUT(
+    //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+        KC_F1,   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+        KC_F2,    KC_7,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+        KC_TAB,  KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_8,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+        KC_F4,    KC_6,    KC_Z,    KC_X,    KC_C,    KC_5,    KC_M,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    //
+       _______, KC_LGUI, KC_LALT, KC_BSPC,  KC_ENT,  KC_SPC, KC_LCTL
+    //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+    ),
     [_ADJUST] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-       RGB_TOG,TO(_BASE),TO(_HUNT),TO(_MINECRAFT), TO(_SATISFACTORY), TO(_CYBERPUNK), XXXXXXX,
+       RGB_TOG,TO(_BASE),TO(_HUNT),TO(_MINECRAFT), TO(_SATISFACTORY), TO(_CYBERPUNK), TO(_VALHEIM),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -241,6 +256,9 @@ const char* get_layer_name(uint8_t layer) {
 
         // case _STATE_OF_DECAY:
         //     return PSTR("State Of Decay");
+
+        case _VALHEIM:
+            return PSTR("Valheim");
 
         default:
             return PSTR("Unknown");
