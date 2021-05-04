@@ -27,6 +27,7 @@ enum layers {
     _SATISFACTORY,
     // _STALKER_COP,
     // _STATE_OF_DECAY,
+    _TABLETOP,
     _VALHEIM,
     _ADJUST,
 };
@@ -190,6 +191,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //   _______, XXXXXXX, XXXXXXX,   KC_E,    KC_T,  KC_LCTL,  KC_SPC
     ////└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
     //),
+    [_TABLETOP] = LAYOUT(
+    //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+        KC_ESC, XXXXXXX,  KC_P1,   KC_P2,  XXXXXXX,  KC_P3,  XXXXXXX,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+         KC_H,   KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,  XXXXXXX,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+       XXXXXXX, KC_LALT,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+       XXXXXXX, KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX,   KC_U,    KC_B,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    //
+    MO(_ADJUST),XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   KC_Z,  KC_LSFT
+    //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+    ),
     [_VALHEIM] = LAYOUT(
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
         KC_F1,   KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -208,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
        RGB_TOG,TO(_BASE),TO(_HUNT),TO(_MINECRAFT), TO(_SATISFACTORY), TO(_CYBERPUNK), TO(_VALHEIM),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX,  XXXXXXX,
+       RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX,  TO(_TABLETOP),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_SAI, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
@@ -276,6 +291,9 @@ const char* get_layer_name(uint8_t layer) {
 
         // case _STATE_OF_DECAY:
         //     return PSTR("State Of Decay");
+
+        case _TABLETOP:
+            return PSTR("Tabletop Simulator");
 
         case _VALHEIM:
             return PSTR("Valheim");
