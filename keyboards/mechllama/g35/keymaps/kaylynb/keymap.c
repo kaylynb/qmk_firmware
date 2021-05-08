@@ -209,14 +209,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
         KC_ESC, XXXXXXX,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_M,  KC_7,VALHEIM_ONETWO, KC_W,    KC_E,    KC_R,  XXXXXXX,
+        KC_M,   XXXXXXX,VALHEIM_ONETWO, KC_W,    KC_E,    KC_R,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_TAB,  KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_F,    KC_8,
+        KC_TAB,  KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_8,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_F4,    KC_6,  XXXXXXX,   KC_X,    KC_C,    KC_5,  XXXXXXX,
+        KC_F4,    KC_6,    KC_7,    KC_X,    KC_C,    KC_5,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     //
-       _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  KC_SPC, KC_LCTL
+       _______, XXXXXXX, XXXXXXX,   KC_F,  XXXXXXX,  KC_SPC, KC_LCTL
     //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
     ),
     [_ADJUST] = LAYOUT(
