@@ -34,6 +34,7 @@ enum layers {
 
 enum custom_keycodes {
     VALHEIM_ONETWO = SAFE_RANGE,
+    REPEAT_ACTIVATE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -209,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
         KC_ESC, XXXXXXX,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-        KC_M,   XXXXXXX,VALHEIM_ONETWO, KC_W,    KC_E,    KC_R,  XXXXXXX,
+        KC_M,   REPEAT_ACTIVATE,VALHEIM_ONETWO, KC_W,    KC_E,    KC_R,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
         KC_TAB,  KC_LSFT,  KC_A,    KC_S,    KC_D,    KC_8,  XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -232,8 +233,71 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //
        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
-  ),
+    ),
 };
+
+
+static bool repeat_enabled = false;
+static uint16_t repeat_code = KC_NO;
+static uint16_t const repeat_activate = REPEAT_ACTIVATE;
+static uint16_t repeat_timer;
+
+static uint16_t repeat_cooldown_min = 35;
+static uint16_t repeat_cooldown_max = 65;
+static uint16_t repeat_cooldown;
+static uint16_t repeat_down = false;
+
+void repeat_set_cooldown(void) {
+    // http://c-faq.com/lib/randrange.html
+    repeat_cooldown =  repeat_cooldown_min + rand() / (RAND_MAX / (repeat_cooldown_max - repeat_cooldown_min + 1) + 1);
+}
+
+void repeat_set_timer(void) {
+    repeat_set_cooldown();
+    repeat_timer = timer_read();
+}
+
+bool repeat_process_record(uint16_t keycode, keyrecord_t* record) {
+    if (repeat_activate == keycode) {
+        if (record->event.pressed) {
+            repeat_enabled = true;
+        } else {
+            unregister_code(repeat_code);
+            repeat_code = KC_NO;
+            repeat_enabled = false;
+        }
+
+        return false;
+    } else if (repeat_enabled) {
+        unregister_code(repeat_code);
+
+        if (record->event.pressed) {
+            repeat_set_timer();
+            repeat_code = keycode;
+            register_code(repeat_code);
+            repeat_down = true;
+        } else {
+            repeat_code = KC_NO;
+        }
+
+        return false;
+    }
+
+    return true;
+}
+
+void repeat_matrix_scan(void) {
+    if (repeat_enabled && KC_NO != repeat_code && timer_elapsed(repeat_timer) > repeat_cooldown) {
+        if (repeat_down) {
+            unregister_code(repeat_code);
+        } else {
+            register_code(repeat_code);
+        }
+
+        repeat_down = !repeat_down;
+        repeat_set_timer();
+    }
+}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
     switch(keycode) {
@@ -248,7 +312,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t* record) {
             return false;
     }
 
-    return true;
+    return repeat_process_record(keycode, record);
+}
+
+void matrix_scan_user(void) {
+    repeat_matrix_scan();
 }
 
 #if defined(OLED_DRIVER_ENABLE)
