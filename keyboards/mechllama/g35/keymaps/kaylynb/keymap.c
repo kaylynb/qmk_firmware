@@ -21,6 +21,7 @@ enum layers {
     // _BANNERLORD_ALT,
     // _COH2,
     _CYBERPUNK,
+    _HELL_LET_LOOSE,
     _HUNT,
     _MINECRAFT,
     // _OUTER_WORLDS,
@@ -106,6 +107,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
     //
        _______, XXXXXXX, XXXXXXX,   KC_LCTL,   KC_LALT,   KC_SPC,  KC_X
+    //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
+    ),
+    [_HELL_LET_LOOSE] = LAYOUT(
+    //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+        KC_ESC,  KC_F2,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+        KC_TAB,  KC_F1,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_6,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+         KC_M,  KC_LSFT,   KC_A,    KC_S,    KC_D,    KC_F,  XXXXXXX,
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
+         KC_T,    KC_Z,   KC_F3,  XXXXXXX,   KC_C,    KC_X,  LALT(KC_F11),
+    //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
+    //
+       _______, XXXXXXX, XXXXXXX, XXXXXXX,   KC_T,  KC_LCTL,  KC_SPC
     //└────────┴────────┴────────┴────────┴────────┴────────┴────────┘
     ),
     [_HUNT] = LAYOUT(
@@ -224,7 +239,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┐
        RGB_TOG,TO(_BASE),TO(_HUNT),TO(_MINECRAFT), TO(_SATISFACTORY), TO(_CYBERPUNK), TO(_VALHEIM),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-       RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, XXXXXXX,  TO(_TABLETOP),
+       RGB_M_K, XXXXXXX, RGB_RMOD,RGB_HUI, RGB_MOD, TO(_HELL_LET_LOOSE),  TO(_TABLETOP),
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
        XXXXXXX, XXXXXXX, RGB_SAD, RGB_HUD, RGB_SAI, XXXXXXX, XXXXXXX,
     //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼
@@ -341,6 +356,9 @@ const char* get_layer_name(uint8_t layer) {
 
         case _CYBERPUNK:
             return PSTR("Cyberpunk 2077");
+
+        case _HELL_LET_LOOSE:
+            return PSTR("Hell Let Loose");
 
         case _HUNT:
             return PSTR("Hunt: Showdown");
